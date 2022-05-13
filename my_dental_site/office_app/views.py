@@ -1,10 +1,10 @@
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 from .forms import AddPatient ,AddPatientVitals
-from django.views.generic import DetailView, FormView, ListView
+from django.views.generic import UpdateView, FormView, ListView
 
 
 class HomeView(ListView):
@@ -21,6 +21,12 @@ class AddPatientFormView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
+class PatientUpdateView(UpdateView):
+    model = Patient
+    fields = '__all__'
+    success_url = reverse_lazy('office_app:list_patients')
 
 
 def patient_vitals(request, patient_id):
