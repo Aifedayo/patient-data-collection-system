@@ -31,6 +31,11 @@
                                 <button class="btn btn-secondary btn-sm disabled">{{ patient.full_name }}</button>
                                 <p class="card-text">{{ patient.gender }} | {{ patient.age }}</p>
                                 <p class="card-text">{{ patient.email }} | {{ patient.phone_number }}</p>
+                                <a href="{% url 'office_app:update_patient_detail' pk=patient.pk %}">
+                                    <button class="btn btn-danger btn-sm">
+                                        Edit Details
+                                </button>
+                                </a>
                             </div>
                             <div class="card-footer">
                                 <small class="text-muted">Last updated {{ patient.last_updated }}</small>

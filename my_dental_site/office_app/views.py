@@ -14,7 +14,7 @@ class HomeView(ListView):
 
 
 class AddPatientFormView(FormView):
-    template_name = 'office_app/add_patient.html'
+    template_name = 'office_app/patient_form.html'
     form_class = AddPatient
     success_url = '/office_app/'
 
