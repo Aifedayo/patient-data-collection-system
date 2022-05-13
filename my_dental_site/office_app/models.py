@@ -80,7 +80,7 @@ class Doctors(models.Model):
 class Patient(models.Model):
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
-    age = models.IntegerField(default=1)
+    age = models.PositiveBigIntegerField()
     email = models.EmailField(null=True, blank=True)
     phone_number = models.CharField(max_length=30)
     timestamp = models.DateTimeField(auto_now_add=True, null=True)
@@ -120,10 +120,6 @@ class Patient(models.Model):
         random_number = self.first_name[0] + self.last_name[0] + '000' + str(self.pk)
         return random_number
 
-    def female_patient_count(self):
-        return self.filter(gender__exact='Female').count()
-
-    @property
     
 
 class Vitals(models.Model):
@@ -161,9 +157,9 @@ class Prescription(models.Model):
 
 class Bills(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
-    registration_fee = models.DecimalField(max_digits=15, default= 0, decimal_places=2)
-    consultation_fee = models.DecimalField(max_digits=15, default= 0, decimal_places=2)
-    prescription_fee = models.DecimalField(max_digits=15, default= 0, decimal_places=2)
+    registration_fee = models.FloatField()
+    consultation_fee = models.FloatField()
+    prescription_fee = models.FloatField()
 
     class Meta:
         verbose_name_plural = "Bills"

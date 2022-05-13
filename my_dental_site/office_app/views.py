@@ -11,6 +11,8 @@ class HomeView(ListView):
     model = Patient
     queryset = Patient.objects.all().order_by('-id')
     context_object_name = 'patients'
+    extra_context = {'female_patient_count': Patient.objects.filter(gender__exact='Female').count()}
+    extra_context = {'male_patient_count': Patient.objects.filter(gender__exact='Male').count()}
 
 
 class DoctorsListView(ListView):
