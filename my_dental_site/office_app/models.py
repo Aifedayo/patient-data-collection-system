@@ -1,5 +1,4 @@
 import datetime
-import uuid
 from datetime import timedelta
 
 from django.core.validators import (MaxLengthValidator, MaxValueValidator,
@@ -11,6 +10,7 @@ GENDER_CHOICES = (
         ('Female', 'Female'),
         ('Male', 'Male')
     )
+
 class Doctors(models.Model):
     AVAILABILITY_CHOICES = (
         ('Available', 'Available'),
@@ -53,7 +53,6 @@ class Doctors(models.Model):
         ('Urology', 'Urology'),
     )
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid3)
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
@@ -68,26 +67,27 @@ class Doctors(models.Model):
     class Meta:
         verbose_name_plural = "Doctors"
 
+    def __str__(self):
+        return f'Dr. {self.first_name} {self.last_name}'
+    
     def full_name(self):
         return f'Dr. {self.first_name} {self.last_name}'
 
-    def __str__(self):
-        return self.full_name
-
     def is_available(self):
         return self.shift == 'On Shift' and self.availability == 'Available'
+
 
 class Patient(models.Model):
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
     age = models.IntegerField(default=1)
     email = models.EmailField(null=True, blank=True)
-    phone_number = models.IntegerField(default=1)
+    phone_number = models.CharField(max_length=30)
     timestamp = models.DateTimeField(auto_now_add=True, null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
     avatar = models.ImageField(upload_to ='static/images/models', null=True, blank=True)
     is_active = models.BooleanField(default=True)
-
+    assigned_doctor = models.ManyToManyField(Doctors, blank=True)
     class Meta:
         ordering = ['first_name', 'last_name']
 
