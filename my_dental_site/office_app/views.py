@@ -55,7 +55,7 @@ def add_patient_vitals(request, patient_id):
             patient_field = formset.save(commit=False)
             patient_field.patient = patient
             patient_field.save()
-            return redirect(reverse('office_app:patient_vitals', kwargs={'patient_id':patient_id}))
+            return redirect(reverse('office_app:patient_detail', kwargs={'patient_id':patient_id}))
     else:
         formset = AddPatientVitals()
     return render(request, 'office_app/add_patient_vitals.html', {'formset': formset})

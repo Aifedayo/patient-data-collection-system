@@ -2,9 +2,11 @@
 
 {% block content %}
         <div class="container-fluid">
-            <button class="btn btn-danger btn-sm">
-                Go back
-            </button>
+            <a href="{% url 'office_app:list_patients' %}">
+                <button class="btn btn-danger btn-sm">
+                  Go back
+              </button>
+            </a>
             <h1 class="m-5">{{ patient.full_name }} does not have vitals yet</h1>
             
             <a href="{% url 'office_app:add_patient_vitals' patient_id=patient.pk %}">
