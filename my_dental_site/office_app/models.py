@@ -1,3 +1,5 @@
+import random
+import string
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator, MaxLengthValidator
 from django.urls import reverse
@@ -20,8 +22,6 @@ class Patient(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
     profile_img = models.ImageField(upload_to ='uploads/% Y/% m/% d/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
-
-
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -46,6 +46,12 @@ class Patient(models.Model):
 
     def get_absolute_url(self):
         return reverse('list_patient', kwargs={'pk':self.pk})
+
+    @property
+    def patient_card_number(self):
+        random_number = self.first_name[0] + self.last_name[0] + '000' + str(self.pk)
+        return random_number
+
 
 class Vitals(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True, related_name='patient_vitals')

@@ -10,10 +10,9 @@
             <h1 class="m-5">{{ patient.full_name }} does not have vitals yet</h1>
             
             <a href="{% url 'office_app:add_patient_vitals' patient_id=patient.pk %}">
-                <button class="btn btn-warning btn-sm">
+                <button class="btn btn-warning">
                     Edit Patient Vitals
                 </button>
-                <i class="fa-solid fa-pencil"></i>
             </a>
         </div>
 {% endblock %}

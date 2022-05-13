@@ -16,8 +16,8 @@
                         <div class="card my-4">
                             <div class="">
                                 <div class="image-left">
-                                    {% if patient.image %}
-                                        <img src="{{ patient.image }}" class="card-img-top" alt="...">
+                                    {% if patient.profile_img %}
+                                        <img src="{{ patient.profile_img.url }}" class="card-img-top" alt="...">
 
                                     {% elif patient.is_male %}
                                         <img src="{% static 'office_app/male_icon.png' %}" class="card-img-top m-1" alt="...">
@@ -35,13 +35,27 @@
                                         <i class="fa fa-bars" aria-hidden="true"></i>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="{% url 'office_app:update_patient_detail' pk=patient.pk %}">Update</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'office_app:delete_patient_detail' pk=patient.pk %}">Delete</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'office_app:update_patient_detail' pk=patient.pk %}">
+                                                Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'office_app:delete_patient_detail' pk=patient.pk %}">
+                                            
+                                            Delete <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>    
                             <div class="card-body">
                                 <button class="btn btn-secondary btn-sm disabled">{{ patient.full_name }}</button>
+                                <p class="card-text card-number">
+                                    <button class="btn btn-danger btn-sm disabled">
+                                        {{ patient.patient_card_number }}
+                                    </button>
+                                </p>
                                 <p class="card-text">{{ patient.gender }} | {{ patient.age }}</p>
                                 <p class="card-text">{{ patient.email }} | {{ patient.phone_number }}</p>
                             </div>

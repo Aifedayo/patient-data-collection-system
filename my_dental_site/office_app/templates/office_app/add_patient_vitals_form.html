@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Add Vitals For This Patient</h3>
 
+    <a href="{% url 'office_app:list_patients' %}">
+        <button class="btn btn-danger btn-sm">
+        Go back
+    </button>
+    </a>
+    <h3>Add Vitals For This {{ patient.full_name }}</h3>
 
     <div class="m-5">
         <form action="" method="POST">

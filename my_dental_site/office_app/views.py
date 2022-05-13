@@ -47,18 +47,6 @@ def patient_vitals(request, patient_id):
         return render(request, 'office_app/no_detail.html', context)
 
 
-class AddPatientVitalsFormView(FormView):
-    form_class = AddPatientVitals
-    template_name = 'office_app/add_patient_vitals.html'
-    success_url = ''
-
-    def form_valid(self, patient_id, form):
-        patient = Patient.objects.get(pk=patient_id)
-        patient_field = form.save(commit=False)
-        patient_field.patient = patient
-        patient_field.save()
-        return super().form_valid(form)
-        
 
 def add_patient_vitals(request, patient_id):
     if request.method == "POST":
@@ -71,5 +59,5 @@ def add_patient_vitals(request, patient_id):
             return redirect(reverse('office_app:patient_detail', kwargs={'patient_id':patient_id}))
     else:
         formset = AddPatientVitals()
-    return render(request, 'office_app/add_patient_vitals.html', {'formset': formset})
+    return render(request, 'office_app/add_patient_vitals_form.html', {'formset': formset})
 
