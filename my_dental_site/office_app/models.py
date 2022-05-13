@@ -20,7 +20,7 @@ class Patient(models.Model):
     phone_number = models.IntegerField(default=1)
     timestamp = models.DateTimeField(auto_now_add=True, null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
-    profile_img = models.ImageField(upload_to ='uploads/% Y/% m/% d/', null=True, blank=True)
+    profile_img = models.ImageField(upload_to ='static/images/models', null=True, blank=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

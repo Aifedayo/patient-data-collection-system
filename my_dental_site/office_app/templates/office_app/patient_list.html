@@ -17,7 +17,7 @@
                             <div class="">
                                 <div class="image-left">
                                     {% if patient.profile_img %}
-                                        <img src="{{ patient.profile_img.url }}" class="card-img-top" alt="...">
+                                        <img src="{{ patient.profile_img }}" class="card-img-top" alt="...">
 
                                     {% elif patient.is_male %}
                                         <img src="{% static 'office_app/male_icon.png' %}" class="card-img-top m-1" alt="...">
