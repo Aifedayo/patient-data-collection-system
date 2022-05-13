@@ -74,6 +74,8 @@ class Doctors(models.Model):
     def __str__(self):
         return self.full_name
 
+    def is_available(self):
+        return self.shift == 'On Shift' and self.availability == 'Available'
 
 class Patient(models.Model):
     first_name = models.CharField(max_length=25)
