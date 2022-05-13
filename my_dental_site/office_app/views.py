@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 from .forms import AddPatient ,AddPatientVitals
-from django.views.generic import UpdateView, FormView, ListView
+from django.views.generic import UpdateView, FormView, ListView, DeleteView
 
 
 class HomeView(ListView):
@@ -26,6 +26,13 @@ class AddPatientFormView(FormView):
 class PatientUpdateView(UpdateView):
     model = Patient
     fields = '__all__'
+    success_url = reverse_lazy('office_app:list_patients')
+
+
+class PatientDeleteView(DeleteView):
+    # Form --> Confirm Delete Button
+    # default template name = model_confirm_delete.html
+    model = Patient
     success_url = reverse_lazy('office_app:list_patients')
 
 

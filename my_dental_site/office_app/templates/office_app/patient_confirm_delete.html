@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="m-5">
+        <h4>Are you sure you want to delete the details of {{ patient.full_name }}?</h4>
+    </div>
+    <div class="m-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="col-4">
+                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
