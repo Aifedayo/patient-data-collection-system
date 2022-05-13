@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Add Vitals For This Patient</h3>
+
+
+    <div class="m-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+                {{formset.as_p}}
+            <div class="col-1">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

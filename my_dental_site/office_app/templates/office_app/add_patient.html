@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Create A New Patient Info</h3>
+
+
+    <div class="m-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+                {{form.as_p}}
+                {{ form.errors}}
+            <div class="col-1">
+                <button type="submit" class="btn btn-warning">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
