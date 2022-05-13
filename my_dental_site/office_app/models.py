@@ -120,6 +120,11 @@ class Patient(models.Model):
         random_number = self.first_name[0] + self.last_name[0] + '000' + str(self.pk)
         return random_number
 
+    def female_patient_count(self):
+        return self.filter(gender__exact='Female').count()
+
+    @property
+    
 
 class Vitals(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True, related_name='patient_vitals')

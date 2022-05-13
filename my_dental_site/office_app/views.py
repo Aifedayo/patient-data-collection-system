@@ -13,6 +13,11 @@ class HomeView(ListView):
     context_object_name = 'patients'
 
 
+class DoctorsListView(ListView):
+    model = Doctors
+    queryset = Doctors.objects.all().order_by('-id')
+    context_object_name = 'doctors'
+
 class AddPatientFormView(FormView):
     template_name = 'office_app/patient_form.html'
     form_class = AddPatient
