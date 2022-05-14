@@ -58,7 +58,7 @@ class Doctors(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
     years_of_experience = models.IntegerField(default=1)
     rank = models.CharField(max_length=30, null=True, choices=RANK)
-    avatar = models.ImageField(upload_to ='static/images/models', null=True, blank=True)
+    avatar = models.ImageField(null=True, blank=True)
     shift = models.CharField(max_length=25, choices=SHIFT_CHOICES, null=True)
     availability = models.CharField(max_length=30, choices=AVAILABILITY_CHOICES, null=True)
     department = models.CharField(max_length=30, choices=DEPARTMENT_CHOICES, null=True)
@@ -85,7 +85,7 @@ class Patient(models.Model):
     phone_number = models.CharField(max_length=30)
     timestamp = models.DateTimeField(auto_now_add=True, null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
-    avatar = models.ImageField(upload_to ='static/images/models', null=True, blank=True)
+    avatar = models.ImageField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     assigned_doctor = models.ManyToManyField(Doctors, blank=True)
     class Meta:
