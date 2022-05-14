@@ -1,17 +1,18 @@
-from random import choices
+from datetime import datetime
+from django.utils.timesince import timesince
 from rest_framework import serializers
+from office_app.models import Patient, Doctors
 
-GENDER_CHOICES = (
-        ('Female', 'Female'),
-        ('Male', 'Male')
-    )
-class PatientSerializer(serializers.Serializer):
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
-    age = serializers.IntegerField()
-    email = serializers.EmailField()
-    phone_number = serializers.CharField()
-    timestamp = serializers.DateTimeField(read_only=True)
-    gender = serializers.CharField(choices=GENDER_CHOICES)
-    avatar = serializers.ImageField()
-    is_active = serializers.BooleanField()
+class PatientSerializer(serializers.ModelSerializer):
+
+    #time_since_admitted = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Patient
+        fields = '__all__'
+
+    # def get_time_since_admitted(self, object):
+    #     timestamp = object.timestamp
+    #     now = datetime.now()
+    #     time_delta = timesince(timestamp, now)
+    #     return time_delta

@@ -24,6 +24,7 @@ urlpatterns = [
     path('office_app/', include('office_app.urls')),
     path('', RedirectView.as_view(url='office_app/')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('api/', include('office_app.api.urls')),
 ]
 
 if settings.DEBUG:
