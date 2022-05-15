@@ -134,3 +134,8 @@ class DoctorsRetrieveUpdateDestroyAPIView(mixins.RetrieveModelMixin,
 class DiagnosisListCreateAPIView(generics.ListCreateAPIView):
     queryset = Diagnosis.objects.all()
     serializer_class = DiagnosisSerializer
+
+
+class DiagnosisDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Diagnosis.objects.all()
+    serializer_class = DiagnosisSerializer

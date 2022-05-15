@@ -4,22 +4,25 @@ from .views import (PatientListCreateAPIView, PatientDetailView,
                             VitalsListCreateAPIView, VitalsDetailView,
                             DoctorsListCreateAPIView,
                             DoctorsRetrieveUpdateDestroyAPIView,
-                            DiagnosisListCreateAPIView,)
+                            DiagnosisListCreateAPIView,
+                            DiagnosisDetailAPIView,)
 
 urlpatterns = [
     path('patient_lists/', PatientListCreateAPIView.as_view(), 
-                                                        name='patient-lists'),
+                                        name='patient-lists'),
     path('patient_detail/<int:pk>/', PatientDetailView.as_view(), 
-                                                        name='patient-detail'),
+                                        name='patient-detail'),
     path('patient_vitals/', VitalsListCreateAPIView.as_view(),
-                                                        name='patient-vitals'), 
+                                        name='patient-vitals'), 
     path('patient_vitals/<int:pk>/', VitalsDetailView.as_view(),
-                                                name='patient-vitals-detail'),
+                                        name='patient-vitals-detail'),
     path('doctors_lists/', DoctorsListCreateAPIView.as_view(),
-                                                name='doctors-list'),
+                                        name='doctors-list'),
     path('doctor_details/<int:pk>/', 
-                            DoctorsRetrieveUpdateDestroyAPIView.as_view(),
-                            name='doctor-details'),
+                                DoctorsRetrieveUpdateDestroyAPIView.as_view(),
+                                        name='doctor-details'),
     path('patient_diagnosis', DiagnosisListCreateAPIView.as_view(), 
                                         name='patient-diagnosis'),
+    path('patient_diagnosis/<int:pk>/', DiagnosisDetailAPIView.as_view(), 
+                                        name='patient-diagnosis-detail')
 ]
