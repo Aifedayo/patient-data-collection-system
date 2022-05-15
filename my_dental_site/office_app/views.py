@@ -116,4 +116,3 @@ def add_patient_vitals(request, patient_id):
     else:
         formset = AddPatientVitals()
     return render(request, 'office_app/add_patient_vitals_form.html', {'formset': formset})
-

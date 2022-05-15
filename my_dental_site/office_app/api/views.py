@@ -1,6 +1,6 @@
 from yaml import serialize
-from office_app.api.serializers import PatientSerializer
-from office_app.models import Patient
+from office_app.api.serializers import PatientSerializer, VitalsSerializer
+from office_app.models import Patient, Vitals
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
@@ -22,7 +22,9 @@ class PatientListCreateAPIView(APIView):
 
     def get(self, request):
         patient = Patient.objects.all().order_by('id')
-        serializer = PatientSerializer(patient, many=True)
+        serializer = PatientSerializer(patient,
+                                        many=True,
+                                        context={'request': request})
         return Response(serializer.data)
     
     def post(self, request):
@@ -57,3 +59,42 @@ class PatientDetailView(APIView):
         patient.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+
+
+class VitalsListCreateAPIView(APIView):
+    
+    def get(self, request):
+        vitals = Vitals.objects.all().order_by('-id')
+        serializer = VitalsSerializer(vitals,many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = VitalsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class VitalsDetailView(APIView):
+    def get_object(self, pk):
+        vitals = get_object_or_404(Vitals, pk=pk)
+        return vitals
+
+    def get(self, request, pk):
+        vitals = self.get_object(pk)
+        serializer = VitalsSerializer(vitals)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        vitals = self.get_object(pk)
+        serializer = VitalsSerializer(vitals, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        vitals = self.get_object(pk)
+        vitals.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
