@@ -9,7 +9,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Patient
-        exclude = ['assigned_doctor']
+        exclude = ('assigned_doctor',)
 
     def get_time_since_admitted(self, object):
         timestamp = object.timestamp
@@ -24,6 +24,7 @@ class PatientSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Age cannot be a negative value!!!')
         return data
 
+    # Define a field level validation
     def validate_phone_number(self, value):
         if len(value) < 11:
             raise serializers.ValidationError('Phone number cannot be lesser then 11 digits!!!')
