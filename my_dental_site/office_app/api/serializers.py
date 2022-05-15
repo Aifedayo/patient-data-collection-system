@@ -7,7 +7,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
     patient_vitals = serializers.HyperlinkedRelatedField(many=True,
                                                         read_only=True,
-                                                        view_name='patient-vitals-detail')
+                                        view_name='patient-vitals-detail')
 
     time_since_admitted = serializers.SerializerMethodField()
 
