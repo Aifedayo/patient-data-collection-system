@@ -1,13 +1,12 @@
-from yaml import serialize
-from office_app.api.serializers import PatientSerializer, VitalsSerializer
-from office_app.models import Patient, Vitals
-from rest_framework import status
+from office_app.models import Doctors, Patient, Vitals
+from rest_framework import generics, mixins, status
 from rest_framework.decorators import api_view
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from .serializers import PatientSerializer
+from .serializers import (PatientSerializer, 
+                            VitalsSerializer, DoctorsSerializer)
 
 
 @api_view(['GET'])
@@ -98,3 +97,17 @@ class VitalsDetailView(APIView):
         vitals = self.get_object(pk)
         vitals.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class DoctorsListCreateAPIView(mixins.ListModelMixin,
+                                mixins.CreateModelMixin,
+                                generics.GenericAPIView):
+    
+    queryset = Doctors.objects.all()
+    serializer_class = DoctorsSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)

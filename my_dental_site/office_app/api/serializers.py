@@ -42,3 +42,10 @@ class VitalsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vitals
         fields = '__all__'
+
+
+class DoctorsSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Doctors
+        fields = '__all__'
