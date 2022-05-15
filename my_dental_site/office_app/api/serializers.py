@@ -9,7 +9,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Patient
-        fields = '__all__'
+        exclude = ['assigned_doctor']
 
     # def get_time_since_admitted(self, object):
     #     timestamp = object.timestamp

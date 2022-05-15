@@ -21,7 +21,7 @@ def patient_list_create_api_view(request):
 class PatientListCreateAPIView(APIView):
 
     def get(self, request):
-        patient = Patient.objects.all()
+        patient = Patient.objects.all().order_by('id')
         serializer = PatientSerializer(patient, many=True)
         return Response(serializer.data)
     
