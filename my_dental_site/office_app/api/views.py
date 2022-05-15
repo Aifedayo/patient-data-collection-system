@@ -1,4 +1,4 @@
-from office_app.models import Doctors, Patient, Vitals
+from office_app.models import (Doctors, Patient, Vitals, Diagnosis)
 from rest_framework import generics, mixins, status
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import (PatientSerializer, 
-                            VitalsSerializer, DoctorsSerializer)
+                            VitalsSerializer, DoctorsSerializer, 
+                            DiagnosisSerializer)
 
 
 @api_view(['GET'])
@@ -111,3 +112,25 @@ class DoctorsListCreateAPIView(mixins.ListModelMixin,
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+
+class DoctorsRetrieveUpdateDestroyAPIView(mixins.RetrieveModelMixin,
+                                            mixins.UpdateModelMixin,
+                                            mixins.DestroyModelMixin,
+                                            generics.GenericAPIView):
+    queryset = Doctors.objects.all()
+    serializer_class = DoctorsSerializer
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class DiagnosisListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Diagnosis.objects.all()
+    serializer_class = DiagnosisSerializer

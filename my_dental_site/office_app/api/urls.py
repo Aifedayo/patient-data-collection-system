@@ -2,7 +2,9 @@ from django.urls import path
 from rest_framework import serializers
 from .views import (PatientListCreateAPIView, PatientDetailView, 
                             VitalsListCreateAPIView, VitalsDetailView,
-                            DoctorsListCreateAPIView)
+                            DoctorsListCreateAPIView,
+                            DoctorsRetrieveUpdateDestroyAPIView,
+                            DiagnosisListCreateAPIView,)
 
 urlpatterns = [
     path('patient_lists/', PatientListCreateAPIView.as_view(), 
@@ -14,5 +16,10 @@ urlpatterns = [
     path('patient_vitals/<int:pk>/', VitalsDetailView.as_view(),
                                                 name='patient-vitals-detail'),
     path('doctors_lists/', DoctorsListCreateAPIView.as_view(),
-                                                name='doctors-lists'),
+                                                name='doctors-list'),
+    path('doctor_details/<int:pk>/', 
+                            DoctorsRetrieveUpdateDestroyAPIView.as_view(),
+                            name='doctor-details'),
+    path('patient_diagnosis', DiagnosisListCreateAPIView.as_view(), 
+                                        name='patient-diagnosis'),
 ]

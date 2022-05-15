@@ -137,8 +137,9 @@ class Vitals(models.Model):
 
 
 class Diagnosis(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
-    diagnosis = models.TextField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True,
+                                    related_name='patient_diagnosis')
+    diagnosis = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"Diagnosis of {self.patient.full_name}"
@@ -148,18 +149,22 @@ class Diagnosis(models.Model):
 
 
 class Prescription(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
-    prescription = models.TextField
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True,
+                                        related_name='patient_prescription')
+    drug = models.CharField(max_length=100, null=True, blank=True)
+    dosage_quantity = models.CharField(max_length=100, null=True, blank=True)
+    dosage_time = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return f"Prescription for {self.patient.full_name}"    
 
 
 class Bills(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
-    registration_fee = models.FloatField()
-    consultation_fee = models.FloatField()
-    prescription_fee = models.FloatField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True,
+                                                related_name='patient_bills')
+    registration_fee = models.FloatField(default=0.0)
+    consultation_fee = models.FloatField(default=0.0)
+    prescription_fee = models.FloatField(default=0.0)
 
     class Meta:
         verbose_name_plural = "Bills"
@@ -168,14 +173,17 @@ class Bills(models.Model):
         return f"Bill for {self.patient.full_name}"
 
     def grand_total(self):
-        bill_list = [self.registration_fee, self.consultation_fee, self.prescription_fee]
+        bill_list = [self.registration_fee, self.consultation_fee, 
+                        self.prescription_fee
+                    ]
         return sum(bill_list)
 
 
-class Appointment(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
-    appointment_date = models.DateField()
-    next_appointment = models.IntegerField(default=0)
+class Appointments(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True,
+                                        related_name='patient_appointments')
+    appointment_date = models.DateField(null=True, blank=True)
+    next_appointment = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
         return f"Appointment details for {self.patient.full_name}"

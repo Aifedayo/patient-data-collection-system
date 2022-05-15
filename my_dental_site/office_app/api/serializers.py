@@ -1,11 +1,14 @@
 from datetime import datetime, timezone
 from django.utils.timesince import timesince
 from rest_framework import serializers
-from office_app.models import Patient, Doctors, Vitals
+from office_app.models import (Patient, Doctors, Vitals, Diagnosis)
 
 class PatientSerializer(serializers.ModelSerializer):
 
     patient_vitals = serializers.HyperlinkedRelatedField(many=True,
+                                                        read_only=True,
+                                        view_name='patient-vitals-detail')
+    patient_diagnosis = serializers.HyperlinkedRelatedField(many=True,
                                                         read_only=True,
                                         view_name='patient-vitals-detail')
 
@@ -13,7 +16,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Patient
-        exclude = ('assigned_doctor',)
+        fields = '__all__'
 
     def get_time_since_admitted(self, object):
         timestamp = object.timestamp
@@ -48,4 +51,11 @@ class DoctorsSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Doctors
+        fields = '__all__'
+
+
+class DiagnosisSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        models = Diagnosis
         fields = '__all__'
