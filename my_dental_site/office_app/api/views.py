@@ -135,6 +135,10 @@ class DiagnosisListCreateAPIView(generics.ListCreateAPIView):
     queryset = Diagnosis.objects.all()
     serializer_class = DiagnosisSerializer
 
+    def perform_create(self, serializer):
+        patient_pk = self.kwargs.get('patient_pk')
+        patient = get_object_or_404(Patient, pk=patient_pk)
+        serializer.save(patient=patient)
 
 class DiagnosisDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Diagnosis.objects.all()

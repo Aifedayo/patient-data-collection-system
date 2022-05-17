@@ -3,12 +3,17 @@ from django.utils.timesince import timesince
 from rest_framework import serializers
 from office_app.models import (Patient, Doctors, Vitals, Diagnosis)
 
+class DiagnosisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Diagnosis
+        fields = '__all__'
+
 class PatientSerializer(serializers.ModelSerializer):
 
     patient_vitals = serializers.HyperlinkedRelatedField(many=True,
                                                         read_only=True,
                                         view_name='patient-vitals-detail')
-    patient_diagnosis = serializers.StringRelatedField()
+    patient_diagnosis = DiagnosisSerializer(many=True, read_only=True)
 
     time_since_admitted = serializers.SerializerMethodField()
 
@@ -51,12 +56,3 @@ class DoctorsSerializer(serializers.ModelSerializer):
         model = Doctors
         fields = '__all__'
 
-
-class DiagnosisSerializer(serializers.ModelSerializer):
-    patient = serializers.StringRelatedField()
-
-    class Meta:
-        model = Diagnosis
-        # 
-        exclude = ('patient', )
- 

@@ -21,7 +21,8 @@ urlpatterns = [
     path('doctor_details/<int:pk>/', 
                                 DoctorsRetrieveUpdateDestroyAPIView.as_view(),
                                         name='doctor-details'),
-    path('patient_diagnosis', DiagnosisListCreateAPIView.as_view(), 
+    path('patient_diagnosis/<int:patient_pk>/diagnosis/', 
+                                        DiagnosisListCreateAPIView.as_view(), 
                                         name='patient-diagnosis'),
     path('patient_diagnosis/<int:pk>/', DiagnosisDetailAPIView.as_view(), 
                                         name='patient-diagnosis-detail')

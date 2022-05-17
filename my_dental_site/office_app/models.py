@@ -141,7 +141,7 @@ class Diagnosis(models.Model):
                                     related_name='patient_diagnosis')
     diagnosis = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(Doctors, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Doctors, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"Diagnosis of {self.patient.full_name}"
@@ -157,7 +157,7 @@ class Prescription(models.Model):
     dosage_quantity = models.CharField(max_length=100, null=True, blank=True)
     dosage_time = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(Doctors, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Doctors, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"Prescription for {self.patient.full_name}"    
