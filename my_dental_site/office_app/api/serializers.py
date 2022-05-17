@@ -58,4 +58,21 @@ class DoctorsSerializer(serializers.ModelSerializer):
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):
-    pass
+    
+    class Meta:
+        model = Prescription
+        fields = '__all__'
+
+
+class BillsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Bills
+        fields = '__all__'
+
+
+class AppointmentsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Appointments
+        fields = '__all__'
