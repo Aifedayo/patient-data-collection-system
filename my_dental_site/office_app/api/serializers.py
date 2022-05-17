@@ -4,14 +4,14 @@ from rest_framework import serializers
 from office_app.models import (Patient, Doctors, Vitals, Diagnosis)
 
 class DiagnosisSerializer(serializers.ModelSerializer):
+
+    created_by = serializers.StringRelatedField(many=True)
     class Meta:
         model = Diagnosis
-        fields = '__all__'
+        fields = ['diagnosis', 'created_at', 'created_by']
 
 
 class VitalsSerializer(serializers.ModelSerializer):
-
-    #patient_vitals = PatientSerializer(many=True, read_only=True)
 
     class Meta:
         model = Vitals
@@ -22,6 +22,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
     patient_vitals = VitalsSerializer(many=True, read_only=True)
     patient_diagnosis = DiagnosisSerializer(many=True, read_only=True)
+    assigned_doctor = serializers.StringRelatedField(many=True)
 
     time_since_admitted = serializers.SerializerMethodField()
 

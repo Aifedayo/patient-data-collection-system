@@ -141,7 +141,7 @@ class Diagnosis(models.Model):
                                     related_name='patient_diagnosis')
     diagnosis = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(Doctors, on_delete=models.CASCADE, null=True)
+    created_by = models.ManyToManyField(Doctors)
 
     def __str__(self):
         return f"Diagnosis of {self.patient.full_name}"
