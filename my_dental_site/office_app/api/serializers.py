@@ -5,9 +5,17 @@ from office_app.models import (Patient, Doctors,
                                 Vitals, Diagnosis, 
                                 Prescription, Bills, Appointments)
 
-class DiagnosisSerializer(serializers.ModelSerializer):
 
-    created_by = serializers.StringRelatedField(many=True)
+class DoctorsSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Doctors
+        fields = '__all__'
+
+
+
+class DiagnosisSerializer(serializers.ModelSerializer):
+    #created_by = serializers.StringRelatedField(many=True)
     class Meta:
         model = Diagnosis
         fields = ['diagnosis', 'created_at', 'created_by']
@@ -49,12 +57,6 @@ class PatientSerializer(serializers.ModelSerializer):
         if len(value) < 11:
             raise serializers.ValidationError('Phone number cannot be lesser then 11 digits!!!')
         return value   
-
-class DoctorsSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Doctors
-        fields = '__all__'
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):

@@ -60,20 +60,24 @@ class PatientDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
+class VitalsListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Vitals.objects.all()
+    serializer_class = VitalsSerializer
 
-class VitalsListCreateAPIView(APIView):
+
+# class VitalsListCreateAPIView(APIView):
     
-    def get(self, request):
-        vitals = Vitals.objects.all().order_by('-id')
-        serializer = VitalsSerializer(vitals,many=True)
-        return Response(serializer.data)
+#     def get(self, request):
+#         vitals = Vitals.objects.all().order_by('-id')
+#         serializer = VitalsSerializer(vitals,many=True)
+#         return Response(serializer.data)
     
-    def post(self, request):
-        serializer = VitalsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def post(self, request):
+#         serializer = VitalsSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class VitalsDetailView(APIView):
