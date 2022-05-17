@@ -8,11 +8,19 @@ class DiagnosisSerializer(serializers.ModelSerializer):
         model = Diagnosis
         fields = '__all__'
 
+
+class VitalsSerializer(serializers.ModelSerializer):
+
+    #patient_vitals = PatientSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Vitals
+        fields = '__all__'
+
+
 class PatientSerializer(serializers.ModelSerializer):
 
-    patient_vitals = serializers.HyperlinkedRelatedField(many=True,
-                                                        read_only=True,
-                                        view_name='patient-vitals-detail')
+    patient_vitals = VitalsSerializer(many=True, read_only=True)
     patient_diagnosis = DiagnosisSerializer(many=True, read_only=True)
 
     time_since_admitted = serializers.SerializerMethodField()
@@ -37,18 +45,7 @@ class PatientSerializer(serializers.ModelSerializer):
     def validate_phone_number(self, value):
         if len(value) < 11:
             raise serializers.ValidationError('Phone number cannot be lesser then 11 digits!!!')
-        return value
-    
-
-class VitalsSerializer(serializers.ModelSerializer):
-
-    patient = serializers.StringRelatedField()
-    #patient_vitals = PatientSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = Vitals
-        fields = '__all__'
-
+        return value   
 
 class DoctorsSerializer(serializers.ModelSerializer):
     
