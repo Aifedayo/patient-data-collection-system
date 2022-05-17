@@ -8,9 +8,7 @@ class PatientSerializer(serializers.ModelSerializer):
     patient_vitals = serializers.HyperlinkedRelatedField(many=True,
                                                         read_only=True,
                                         view_name='patient-vitals-detail')
-    patient_diagnosis = serializers.HyperlinkedRelatedField(many=True,
-                                                        read_only=True,
-                                        view_name='patient-diagnosis-detail')
+    patient_diagnosis = serializers.StringRelatedField()
 
     time_since_admitted = serializers.SerializerMethodField()
 
@@ -59,4 +57,6 @@ class DiagnosisSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Diagnosis
-        fields = '__all__'
+        # 
+        exclude = ('patient', )
+ 
