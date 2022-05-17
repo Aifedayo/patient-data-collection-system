@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
 from django.utils.timesince import timesince
 from rest_framework import serializers
-from office_app.models import (Patient, Doctors, Vitals, Diagnosis)
+from office_app.models import (Patient, Doctors, 
+                                Vitals, Diagnosis, 
+                                Prescription, Bills, Appointments)
 
 class DiagnosisSerializer(serializers.ModelSerializer):
 
@@ -54,3 +56,6 @@ class DoctorsSerializer(serializers.ModelSerializer):
         model = Doctors
         fields = '__all__'
 
+
+class PrescriptionSerializer(serializers.ModelSerializer):
+    pass
