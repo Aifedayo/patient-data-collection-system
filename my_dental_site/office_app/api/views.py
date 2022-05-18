@@ -1,19 +1,21 @@
-from office_app.models import (Doctors, Patient, Vitals, Diagnosis,
-                                    Prescription, Bills, Appointments)
-from rest_framework import generics, mixins, status
+from office_app.models import (Appointments, Bills, Diagnosis, Doctors,
+                               Patient, Prescription, Vitals)
+from rest_framework import generics, mixins, permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import (PatientSerializer, PrescriptionSerializer,
-                            VitalsSerializer, DoctorsSerializer, 
-                            DiagnosisSerializer, BillsSerializer,
-                            AppointmentsSerializer)
+from .serializers import (AppointmentsSerializer, BillsSerializer,
+                          DiagnosisSerializer, DoctorsSerializer,
+                          PatientSerializer, PrescriptionSerializer,
+                          VitalsSerializer)
 
 
 @api_view(['GET'])
 def patient_list_create_api_view(request):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
     if request.method == 'GET':
         patient = Patient.objects.all()
         serializer = PatientSerializer(patient, many=True)
