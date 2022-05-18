@@ -151,7 +151,7 @@ class DiagnosisDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class PrescriptionListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Prescription
+    queryset = Prescription.objects.all()
     serializer_class = PrescriptionSerializer
 
     def perform_create(self, serializer):
