@@ -8,10 +8,12 @@ from office_app.models import (Patient, Doctors,
                                 Prescription, Bills, Appointments)
 
 class PrescriptionSerializer(serializers.ModelSerializer):
-    created_by = serializers.SlugField()
+    patient = serializers.StringRelatedField()
+    created_by = serializers.StringRelatedField()
+    
     class Meta:
         model = Prescription
-        exclude = ('patient', )
+        fields = '__all__'
 
 
 class BillsSerializer(serializers.ModelSerializer):
