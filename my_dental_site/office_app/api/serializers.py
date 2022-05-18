@@ -30,6 +30,7 @@ class AppointmentsSerializer(serializers.ModelSerializer):
 class DoctorsSerializer(serializers.ModelSerializer):
     
     full_name = serializers.ReadOnlyField()
+    is_available = serializers.ReadOnlyField()
     doctor_diagnosis = serializers.StringRelatedField(many=True)
     class Meta:
         model = Doctors

@@ -8,7 +8,8 @@ from rest_framework.views import APIView
 
 from .serializers import (PatientSerializer, PrescriptionSerializer,
                             VitalsSerializer, DoctorsSerializer, 
-                            DiagnosisSerializer)
+                            DiagnosisSerializer, BillsSerializer,
+                            AppointmentsSerializer)
 
 
 @api_view(['GET'])
@@ -162,3 +163,17 @@ class PrescriptionListCreateAPIView(generics.ListCreateAPIView):
 class PrescriptionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Prescription.objects.all()
     serializer_class = PrescriptionSerializer
+
+
+class BillsListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Bills.objects.all()
+    serializer_class = BillsSerializer
+
+    def perform_create(self, serializer):
+        patient_pk = self.kwargs.get('patient_pk')
+        patient = get_object_or_404(Patient, pk=patient_pk)
+        serializer.save(patient=patient)
+
+class BillsDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Bills.objects.all()
+    serializer_class = BillsSerializer
