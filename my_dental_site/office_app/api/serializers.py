@@ -10,7 +10,7 @@ from office_app.models import (Patient, Doctors,
 class PrescriptionSerializer(serializers.ModelSerializer):
     patient = serializers.StringRelatedField()
     created_by = serializers.StringRelatedField()
-    
+
     class Meta:
         model = Prescription
         fields = '__all__'
@@ -18,16 +18,20 @@ class PrescriptionSerializer(serializers.ModelSerializer):
 
 class BillsSerializer(serializers.ModelSerializer):
 
+    patient = serializers.StringRelatedField()
+    created_by = serializers.StringRelatedField()
     class Meta:
         model = Bills
-        exclude = ('patient', )
+        fields = '__all__'
 
 
 class AppointmentsSerializer(serializers.ModelSerializer):
 
+    patient = serializers.StringRelatedField()
+    created_by = serializers.StringRelatedField()
     class Meta:
         model = Appointments
-        exclude = ('patient', )
+        fields = '__all__'
 
 
 class DoctorsSerializer(serializers.ModelSerializer):
@@ -42,9 +46,12 @@ class DoctorsSerializer(serializers.ModelSerializer):
 
 
 class DiagnosisSerializer(serializers.ModelSerializer):
+    
+    patient = serializers.StringRelatedField()
+    created_by = serializers.StringRelatedField(read_only=False)
     class Meta:
         model = Diagnosis
-        exclude = ('patient', )
+        fields = '__all__'
         
 
 class VitalsSerializer(serializers.ModelSerializer):
