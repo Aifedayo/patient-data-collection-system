@@ -70,6 +70,7 @@ class Doctors(models.Model):
     def __str__(self):
         return f'Dr. {self.first_name} {self.last_name}'
     
+    @property
     def full_name(self):
         return f'Dr. {self.first_name} {self.last_name}'
 

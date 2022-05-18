@@ -17,18 +17,19 @@ class BillsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Bills
-        fields = '__all__'
+        exclude = ('patient', )
 
 
 class AppointmentsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Appointments
-        fields = '__all__'
+        exclude = ('patient', )
 
 
 class DoctorsSerializer(serializers.ModelSerializer):
     
+    full_name = serializers.ReadOnlyField()
     doctor_diagnosis = serializers.StringRelatedField(many=True)
     class Meta:
         model = Doctors
@@ -39,8 +40,8 @@ class DoctorsSerializer(serializers.ModelSerializer):
 class DiagnosisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Diagnosis
-        fields = ['diagnosis', 'created_at', 'created_by']
-
+        exclude = ('patient', )
+        
 
 class VitalsSerializer(serializers.ModelSerializer):
 
