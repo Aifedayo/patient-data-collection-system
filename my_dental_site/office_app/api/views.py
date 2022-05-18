@@ -14,8 +14,7 @@ from .serializers import (AppointmentsSerializer, BillsSerializer,
 
 @api_view(['GET'])
 def patient_list_create_api_view(request):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
+
     if request.method == 'GET':
         patient = Patient.objects.all()
         serializer = PatientSerializer(patient, many=True)
@@ -23,6 +22,7 @@ def patient_list_create_api_view(request):
 
 
 class PatientListCreateAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self, request):
         patient = Patient.objects.all().order_by('id')
