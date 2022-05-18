@@ -1,13 +1,12 @@
 from django.urls import path
 from rest_framework import serializers
 from .views import (PatientListCreateAPIView, PatientDetailView, 
-                            VitalsListCreateAPIView, VitalsDetailView,
-                            DoctorsListCreateAPIView,
-                            DoctorsRetrieveUpdateDestroyAPIView,
-                            DiagnosisListCreateAPIView, 
-                            PrescriptionDetailAPIView,
-                            DiagnosisDetailAPIView, 
-                            PrescriptionListCreateAPIView,)
+                    VitalsListCreateAPIView, VitalsDetailView,
+                    DoctorsListCreateAPIView, DoctorsRetrieveUpdateDestroyAPIView,
+                    DiagnosisListCreateAPIView, BillsListCreateAPIView,
+                    BillsDetailAPIView, DiagnosisDetailAPIView, 
+                    AppointmentsListCreateAPIView, AppointmentsDetailAPIView, 
+                    PrescriptionDetailAPIView, PrescriptionListCreateAPIView,)
 
 urlpatterns = [
     path('patient_lists/', PatientListCreateAPIView.as_view(), 

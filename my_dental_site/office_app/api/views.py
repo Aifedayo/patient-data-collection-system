@@ -177,3 +177,17 @@ class BillsListCreateAPIView(generics.ListCreateAPIView):
 class BillsDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bills.objects.all()
     serializer_class = BillsSerializer
+
+
+class AppointmentsListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Appointments.objects.all()
+    serializer_class = AppointmentsSerializer
+
+    def perform_create(self, serializer):
+        patient_pk = self.kwargs.get('patient_pk')
+        patient = get_object_or_404(Patient, pk=patient_pk)
+        serializer.save(patient=patient)
+
+class AppointmentsDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Bills.objects.all()
+    serializer_class = AppointmentsSerializer
