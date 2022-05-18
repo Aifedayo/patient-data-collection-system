@@ -13,6 +13,7 @@ from .serializers import (AppointmentsSerializer, BillsSerializer,
                           PatientSerializer, PrescriptionSerializer,
                           VitalsSerializer)
 
+from .pagination import SmallSetPagination
 
 @api_view(['GET'])
 def patient_list_create_api_view(request):
@@ -25,6 +26,7 @@ def patient_list_create_api_view(request):
 
 class PatientListCreateAPIView(APIView):
     permission_classes = [IsAdminUserOrReadOnly]
+    pagination_class = SmallSetPagination
 
     def get(self, request):
         patient = Patient.objects.all().order_by('id')
@@ -143,8 +145,9 @@ class DoctorsRetrieveUpdateDestroyAPIView(mixins.RetrieveModelMixin,
 
 
 class DiagnosisListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Diagnosis.objects.all()
+    queryset = Diagnosis.objects.all().order_by('-id')
     serializer_class = DiagnosisSerializer
+    pagination_class = SmallSetPagination
 
     def perform_create(self, serializer):
         patient_pk = self.kwargs.get('patient_pk')
