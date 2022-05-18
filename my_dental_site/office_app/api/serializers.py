@@ -1,3 +1,4 @@
+from asyncore import read
 from datetime import datetime, timezone
 from django.utils.timesince import timesince
 from rest_framework import serializers
@@ -8,6 +9,7 @@ from office_app.models import (Patient, Doctors,
 
 class DoctorsSerializer(serializers.ModelSerializer):
     
+    doctor_diagnosis = serializers.StringRelatedField(many=True)
     class Meta:
         model = Doctors
         fields = '__all__'
@@ -15,10 +17,9 @@ class DoctorsSerializer(serializers.ModelSerializer):
 
 
 class DiagnosisSerializer(serializers.ModelSerializer):
-    #created_by = serializers.StringRelatedField(many=True)
     class Meta:
         model = Diagnosis
-        fields = ['diagnosis', 'created_at', 'created_by']
+        fields = ['patient', 'diagnosis', 'created_at', 'created_by']
 
 
 class VitalsSerializer(serializers.ModelSerializer):

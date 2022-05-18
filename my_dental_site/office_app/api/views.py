@@ -1,11 +1,12 @@
-from office_app.models import (Doctors, Patient, Vitals, Diagnosis)
+from office_app.models import (Doctors, Patient, Vitals, Diagnosis,
+                                    Prescription, Bills, Appointments)
 from rest_framework import generics, mixins, status
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import (PatientSerializer, 
+from .serializers import (PatientSerializer, PrescriptionSerializer,
                             VitalsSerializer, DoctorsSerializer, 
                             DiagnosisSerializer)
 
@@ -147,3 +148,17 @@ class DiagnosisListCreateAPIView(generics.ListCreateAPIView):
 class DiagnosisDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Diagnosis.objects.all()
     serializer_class = DiagnosisSerializer
+
+
+class PrescriptionListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Prescription
+    serializer_class = PrescriptionSerializer
+
+    def perform_create(self, serializer):
+        patient_pk = self.kwargs.get('patient_pk')
+        patient = get_object_or_404(Patient, pk=patient_pk)
+        serializer.save(patient=patient)
+
+class PrescriptionDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Prescription.objects.all()
+    serializer_class = PrescriptionSerializer
