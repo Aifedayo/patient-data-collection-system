@@ -48,7 +48,7 @@ class DoctorsSerializer(serializers.ModelSerializer):
 class DiagnosisSerializer(serializers.ModelSerializer):
     
     patient = serializers.StringRelatedField()
-    created_by = serializers.StringRelatedField(read_only=False)
+    created_by = serializers.StringRelatedField()
     class Meta:
         model = Diagnosis
         fields = '__all__'
