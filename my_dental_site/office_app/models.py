@@ -130,6 +130,7 @@ class Vitals(models.Model):
     weight = models.DecimalField(default=2.5, max_digits=5, decimal_places=1)
     blood_pressure = models.IntegerField(default=60, validators=[MinValueValidator(1), MaxValueValidator(200)])
     pulse = models.IntegerField(default=60, validators=[MinValueValidator(1), MaxValueValidator(200)])
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.patient.full_name}'

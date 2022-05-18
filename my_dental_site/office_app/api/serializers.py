@@ -1,5 +1,6 @@
 from asyncore import read
 from datetime import datetime, timezone
+from tkinter.tix import Tree
 from django.utils.timesince import timesince
 from rest_framework import serializers
 from office_app.models import (Patient, Doctors, 
@@ -7,7 +8,7 @@ from office_app.models import (Patient, Doctors,
                                 Prescription, Bills, Appointments)
 
 class PrescriptionSerializer(serializers.ModelSerializer):
-    
+    created_by = serializers.SlugField()
     class Meta:
         model = Prescription
         exclude = ('patient', )
@@ -31,7 +32,7 @@ class DoctorsSerializer(serializers.ModelSerializer):
     
     full_name = serializers.ReadOnlyField()
     is_available = serializers.ReadOnlyField()
-    doctor_diagnosis = serializers.StringRelatedField(many=True)
+    doctor_diagnosis = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = Doctors
         fields = '__all__'
