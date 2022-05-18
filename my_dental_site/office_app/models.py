@@ -1,10 +1,12 @@
 import datetime
 from datetime import timedelta
 
+from django.contrib.auth.models import User
 from django.core.validators import (MaxLengthValidator, MaxValueValidator,
                                     MinLengthValidator, MinValueValidator)
 from django.db import models
 from django.urls import reverse
+
 
 GENDER_CHOICES = (
         ('Female', 'Female'),

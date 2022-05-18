@@ -6,6 +6,8 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .permissions import IsAdminUserOrReadOnly, IsAuthenticatedDoctor
+
 from .serializers import (AppointmentsSerializer, BillsSerializer,
                           DiagnosisSerializer, DoctorsSerializer,
                           PatientSerializer, PrescriptionSerializer,
@@ -22,7 +24,7 @@ def patient_list_create_api_view(request):
 
 
 class PatientListCreateAPIView(APIView):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminUserOrReadOnly]
 
     def get(self, request):
         patient = Patient.objects.all().order_by('id')
@@ -114,6 +116,7 @@ class DoctorsListCreateAPIView(mixins.ListModelMixin,
     
     queryset = Doctors.objects.all()
     serializer_class = DoctorsSerializer
+    permission_classes = [IsAuthenticatedDoctor]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
