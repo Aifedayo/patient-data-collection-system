@@ -10,7 +10,7 @@ class PrescriptionSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Prescription
-        fields = '__all__'
+        exclude = ('patient', )
 
 
 class BillsSerializer(serializers.ModelSerializer):

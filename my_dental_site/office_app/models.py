@@ -170,6 +170,7 @@ class Bills(models.Model):
     registration_fee = models.FloatField(default=0.0)
     consultation_fee = models.FloatField(default=0.0)
     prescription_fee = models.FloatField(default=0.0)
+    currency = models.CharField(max_length=3, default='USD')
 
     class Meta:
         verbose_name_plural = "Bills"
