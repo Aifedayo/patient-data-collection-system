@@ -4,8 +4,10 @@ from .views import (PatientListCreateAPIView, PatientDetailView,
                             VitalsListCreateAPIView, VitalsDetailView,
                             DoctorsListCreateAPIView,
                             DoctorsRetrieveUpdateDestroyAPIView,
-                            DiagnosisListCreateAPIView,
-                            DiagnosisDetailAPIView,)
+                            DiagnosisListCreateAPIView, 
+                            PrescriptionDetailAPIView,
+                            DiagnosisDetailAPIView, 
+                            PrescriptionListCreateAPIView,)
 
 urlpatterns = [
     path('patient_lists/', PatientListCreateAPIView.as_view(), 
@@ -25,5 +27,11 @@ urlpatterns = [
                                         DiagnosisListCreateAPIView.as_view(), 
                                         name='patient-diagnosis'),
     path('patient_diagnosis/<int:pk>/', DiagnosisDetailAPIView.as_view(), 
-                                        name='patient-diagnosis-detail')
+                                        name='patient-diagnosis-detail'),
+
+    path('patient_prescription/<int:patient_pk>/prescription/',
+                                        PrescriptionListCreateAPIView.as_view(),
+                                        name='patient-prescription'),
+    path('patient_prescription/<int:pk>/', PrescriptionDetailAPIView.as_view(),
+                                        name='patient-prescription'),
 ]

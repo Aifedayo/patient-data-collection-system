@@ -6,6 +6,26 @@ from office_app.models import (Patient, Doctors,
                                 Vitals, Diagnosis, 
                                 Prescription, Bills, Appointments)
 
+class PrescriptionSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Prescription
+        fields = '__all__'
+
+
+class BillsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Bills
+        fields = '__all__'
+
+
+class AppointmentsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Appointments
+        fields = '__all__'
+
 
 class DoctorsSerializer(serializers.ModelSerializer):
     
@@ -19,7 +39,7 @@ class DoctorsSerializer(serializers.ModelSerializer):
 class DiagnosisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Diagnosis
-        fields = ['patient', 'diagnosis', 'created_at', 'created_by']
+        fields = ['diagnosis', 'created_at', 'created_by']
 
 
 class VitalsSerializer(serializers.ModelSerializer):
@@ -34,7 +54,9 @@ class PatientSerializer(serializers.ModelSerializer):
     patient_vitals = VitalsSerializer(many=True, read_only=True)
     patient_diagnosis = DiagnosisSerializer(many=True, read_only=True)
     assigned_doctor = serializers.StringRelatedField(many=True)
+    patient_prescription = PrescriptionSerializer(many=True, read_only=True)
 
+    # Method Fields
     time_since_admitted = serializers.SerializerMethodField()
 
     class Meta:
@@ -58,24 +80,3 @@ class PatientSerializer(serializers.ModelSerializer):
         if len(value) < 11:
             raise serializers.ValidationError('Phone number cannot be lesser then 11 digits!!!')
         return value   
-
-
-class PrescriptionSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Prescription
-        fields = '__all__'
-
-
-class BillsSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Bills
-        fields = '__all__'
-
-
-class AppointmentsSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Appointments
-        fields = '__all__'
